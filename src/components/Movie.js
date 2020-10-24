@@ -1,15 +1,26 @@
 import React from 'react';
 
 const IMG_API = "https://image.tmdb.org/t/p/w1280";
+
+const setVoteClass = (vote) => {
+  if (vote >= 8) {
+    return "green";
+  } else if (vote >= 6) {
+    return "orange";
+  } else {
+    return "red";
+  }
+}
+
 // were passing the props that we get from the APP component API,
 // we can go to the console to look for the attributes of the API
 const Movie = ({title, poster_path, overview, vote_average}) => {
   return (
     <div className="movie">
-      <img src={IMG_API + poster_path} alt={title} />
+      <img src={poster_path ? (IMG_API + poster_path) : 'https://images.pexels.com/photos/1117132/pexels-photo-1117132.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'} alt={title} />
       <div className="movie-info">
         <h3>{title}</h3>
-        <span>{vote_average}</span>
+        <span className={`tag ${setVoteClass(vote_average)}`}>{vote_average}</span>
       </div>
       <div className="movie-over">
         <h2>Overview:</h2>
